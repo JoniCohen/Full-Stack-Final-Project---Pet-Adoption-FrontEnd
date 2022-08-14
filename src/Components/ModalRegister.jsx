@@ -25,7 +25,7 @@ export default function ModalRegister({showModalRegister,handleCloseModalRegiste
             const res =  await axios.post('http://localhost:8080/users/signup', newUser)
             return res
         }catch(err){
-            console.log(err)
+            console.log(err.message,err.response.data)
         }
         
     }    
@@ -73,7 +73,7 @@ export default function ModalRegister({showModalRegister,handleCloseModalRegiste
         <Modal.Body>
           <Form>
             
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="modalRegister">
             
             <Form.Label className='mt-1'>First Name</Form.Label>
               <Form.Control
@@ -110,6 +110,7 @@ export default function ModalRegister({showModalRegister,handleCloseModalRegiste
                 autoFocus
                 onChange={handleChangePassword}
               />
+              <span className='text-success'>Must be between 3-10 characters</span><br/>
               <Form.Label className='mt-1'>Confirm Password</Form.Label>
               <Form.Control
                 type="password"
@@ -117,7 +118,7 @@ export default function ModalRegister({showModalRegister,handleCloseModalRegiste
                 autoFocus
                 onChange={handleChangeConfirmPassword}
               />
-              <span hidden={password!==confirmPassword && confirmPassword!='' ? false : true} >The passwords don't match</span>
+              <span className='text-danger' hidden={password!==confirmPassword && confirmPassword!=='' ? false : true} >The passwords don't match</span>
             </Form.Group>
           </Form>
         </Modal.Body>

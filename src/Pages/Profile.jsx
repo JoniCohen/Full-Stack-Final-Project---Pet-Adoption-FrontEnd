@@ -1,20 +1,66 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, FormGroup, Button } from 'react-bootstrap'
+import NavBarHome from '../Components/NavBarHome'
 
 export default function Profile() {
+  
+
+
+
   return (
+    <>
+    <NavBarHome />
     <div>
-      <Form className='form-profile d-flex flex-column'>
-        <input className='input-profile' type='text' placeholder='First Name' />
-        <input className='input-profile' type='text' placeholder='Last Name'/>
-        <input className='input-profile' type='email' placeholder='Email'/>
-        <input className='input-profile' type='password' placeholder='Password'/>
-        <input className='input-profile' type='number' placeholder='Phone Number'/>
-        <textarea className='textarea-profile' placeholder='Write a short Bio:'/>
+      <Form className='form-profile'>
+      <h1>Profile Settings</h1>
+        <FormGroup className="mb-3" controlId="profileSettings">
+        <Form.Label className='mt-1'>First Name</Form.Label>
+        <Form.Control
+                type="text"
+                placeholder="First Name"
+                autoFocus
+              />
+              <Form.Label className='mt-1'>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Last Name"
+                autoFocus
+              />
+              <Form.Label className='mt-1'>Phone Number</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Phone Number"
+                autoFocus
+              />
+              <Form.Label className='mt-1'>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                autoFocus
+              />
+              <Form.Label className='mt-1'>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                autoFocus
+              />
+              <Form.Label className='mt-1'>Bio</Form.Label>
+              <Form.Control
+              className='textarea-profile'
+                as="textarea"
+                placeholder="Write a short Bio"
+                autoFocus
+              />
+        </FormGroup>
+        <Button variant="primary" >
+           Save Changes
+          </Button>
       </Form>
 
 
 
     </div>
+    </>
+    
   )
 }
