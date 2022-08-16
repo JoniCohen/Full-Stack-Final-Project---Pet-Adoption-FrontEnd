@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
+import appContext from '../Context/appContext';
 
 export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleShowModalLogin}) {
+  const {isLoggedIn,setIsLoggedIn,userId,setUserId} = useContext(appContext)
     const [emailLogin, setEmailLogin] = useState('');
     const [passwordLogin, setPasswordLogin] = useState('');
+    
 
     function handleChangeEmailLogin(e){
         setEmailLogin(e.target.value)
@@ -18,10 +21,15 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
     async function logInUser(){
         try{
           const res = await axios.post('http://localhost:8080/users/login',userLogIn)
-          console.log(res)
+          console.log(res.data.id)
+          setIsLoggedIn(true)
+          setUserId(res.data.id)
           return res
         }catch(err){
-          console.log(err.response.data)
+          console.log(err.response,err)
+        }finally{
+          handleCloseModalLogin()
+          
         }
     }
 
@@ -62,6 +70,9 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
           </Button>
         </Modal.Footer>
       </Modal>
+      
+     
     </>
+    
   )
 }

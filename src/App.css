@@ -43,3 +43,15 @@ body{
   resize: none;
   height: 130px;
 }
+.sign-in-btn{
+  margin-left: 80%;
+}
+.sign-up-btn{
+  margin-left: 3%;
+}
+.welcome-website{
+  margin-left: 25%;
+}
+.sign-out-btn{
+  margin-left: 90%;
+}
