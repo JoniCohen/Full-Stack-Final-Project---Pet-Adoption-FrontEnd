@@ -25,8 +25,8 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/profile' element={<Profile/>}/>
-        <Route path='/mypets' element={<MyPets/>}/>
+        <Route path='/profile' element={<PrivateRouter isLoggedIn={isLoggedIn}><Profile/></PrivateRouter> }/>
+        <Route path='/mypets' element={<PrivateRouter isLoggedIn={isLoggedIn} ><MyPets/></PrivateRouter>}/>
         
         <Route path='/search' element={<Search/>}/>
       </Routes>
