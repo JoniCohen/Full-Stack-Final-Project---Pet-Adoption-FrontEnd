@@ -21,9 +21,8 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
     async function logInUser(){
         try{
           const res = await axios.post('http://localhost:8080/users/login',userLogIn)
-          console.log(res.data.id)
           setIsLoggedIn(true)
-          setUserId(res.data.id)
+          setUserId(res.data.id_user)
           return res
         }catch(err){
           console.log(err.response,err)
@@ -32,7 +31,7 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
           
         }
     }
-
+   
   return (
     <>
     <Modal show={showModalLogin} onHide={handleCloseModalLogin}>

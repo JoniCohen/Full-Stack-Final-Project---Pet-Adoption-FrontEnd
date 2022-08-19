@@ -5,8 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import appContext from '../Context/appContext';
 
-export default function ModalRegister({showModalRegister,handleCloseModalRegister,handleShowModalRegister}) {
-  const {isLoggedIn,setIsLoggedIn} = useContext(appContext)
+export default function ModalRegister({showModalRegister,handleCloseModalRegister,handleShowModalRegister,handleShowModalLogin}) {
+  const {isLoggedIn,setIsLoggedIn,userId,setUserId} = useContext(appContext)
     const [firstName,setFirstName] = useState('')
     const [lastName,setLastName] = useState('')
     const [phoneNumber,setPhoneNumber] = useState('')
@@ -26,10 +26,14 @@ export default function ModalRegister({showModalRegister,handleCloseModalRegiste
     async function registerUser(){
         try{
             const res =  await axios.post('http://localhost:8080/users/signup', newUser)
-            setIsLoggedIn(true)
+            console.log(res)
+          handleCloseModalRegister()
+          handleShowModalLogin()
             return res
         }catch(err){
             console.log(err.message,err.response.data)
+        }finally{
+          
         }
         
     }    
@@ -58,7 +62,7 @@ export default function ModalRegister({showModalRegister,handleCloseModalRegiste
     function createUser(){
         if((firstName !== ''&& lastName !== '' && email !== '' & phoneNumber !==''&& password !== ''&& confirmPassword!=='')&&isValidEmail(email)){
             registerUser()
-            handleCloseModalRegister()
+            
             
         }else if((firstName !== ''&& lastName !== '' && email !== '' & phoneNumber !==''&& password !== ''&& confirmPassword!=='')&&!isValidEmail(email)){
             alert('Email format is invalid')

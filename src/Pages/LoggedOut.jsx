@@ -38,6 +38,7 @@ export default function LoggedOut() {
         showModalRegister={showModalRegister}
         handleCloseModalRegister={handleCloseModalRegister}
         handleShowModalRegister={handleShowModalRegister}
+        handleShowModalLogin = {handleShowModalLogin}
       />
       <ModalLogin
         showModalLogin={showModalLogin}

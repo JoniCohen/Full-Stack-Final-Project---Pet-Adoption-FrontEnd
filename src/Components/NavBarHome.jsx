@@ -7,11 +7,12 @@ import appContext from '../Context/appContext';
 
 
 export default function NavBarHome() {
-  const {isLoggedIn,setIsLoggedIn} = useContext(appContext)
+  const {isLoggedIn,setIsLoggedIn, userId, setUserId} = useContext(appContext)
+  
   
   async function logOut(){
    setIsLoggedIn(false)
-  
+    setUserId('')
   }
 
   return (
