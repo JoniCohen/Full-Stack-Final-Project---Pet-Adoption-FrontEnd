@@ -55,3 +55,7 @@ body{
 .sign-out-btn{
   margin-left: 90%;
 }
+.email-profile-settings,.password-profile-settings{
+  background-color: gray;
+  color: white;
+}

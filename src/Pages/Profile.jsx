@@ -5,32 +5,45 @@ import NavBarHome from '../Components/NavBarHome'
 import appContext from '../Context/appContext'
 
 export default function Profile() {
-  const {userId, setUserId} = useContext(appContext)
-  const [firstNameToChange, setFirstNameToChange] = useState('')
-  const [lastNameToChange, setLastNameToChange] = useState('')
-  const [phoneNumberToChange, setPhoneNumberToChange] = useState('')
-  const [emailToChange, setEmailToChange] = useState('')
-  const [passwordToChange, setPasswordToChange] = useState('')
-  const [confirmPasswordToChange, setConfirmPasswordToChange] = useState('')
-  const [bioToChange, setBioToChange] = useState('')
+  const {userId, setUserId,fullName, setFullName,firstNameToChange, setFirstNameToChange,lastNameToChange, setLastNameToChange,phoneNumberToChange, setPhoneNumberToChange,emailToChange, setEmailToChange,passwordToChange, setPasswordToChange,bioToChange, setBioToChange} = useContext(appContext)
+  const [firstNameChanged,setFirstNameChanged] = useState(firstNameToChange)
+  const [lastNameChanged, setLastNameChanged] = useState(lastNameToChange)
+  const [phoneNumberChanged, setPhoneNumberChanged] = useState(phoneNumberToChange)
+  const [bioChanged, setBioChanged] = useState(bioToChange)
+  
+  function changeFirstName(e){
+    setFirstNameChanged(e.target.value)
+  }
+  function changeLastName(e){
+    setLastNameChanged(e.target.value)
+  }
+  function changePhoneNumber(e){
+    setPhoneNumberChanged(e.target.value)
+  }
+  function changeBio(e){
+    setBioChanged(e.target.value)
+  }
+  function saveChanges(e){
+    setFirstNameToChange(firstNameChanged)
+    setLastNameToChange(lastNameChanged)
+    setPhoneNumberToChange(phoneNumberChanged)
+    setBioToChange(bioChanged)
+    if(window.confirm('Are you sure that you want to change your profile?')){
+      changeProfile()
+      alert('Profile Changed')
+    }
+    
+  }
 
-  async function getUserToChange(){
+  const profileChanged = {firstName:firstNameChanged,lastName:lastNameChanged,phoneNumber:phoneNumberChanged,bio:bioChanged}
+  async function changeProfile(){
     try{
-      const res = await axios.get('http://localhost:8080/users/user/'+userId)
+      const res = await axios.put(`http://localhost:8080/users/user/${userId}`,profileChanged)
       return res
     }catch(err){
       console.log(err)
     }
-  }
-  getUserToChange().then((res)=>{
-    setFirstNameToChange(res.data.firstName)
-    setLastNameToChange(res.data.lastName)
-    setPhoneNumberToChange(res.data.phoneNumber)
-    setEmailToChange(res.data.email)
-    setPasswordToChange(res.data.password)
-    setConfirmPasswordToChange(res.data.confirmPassword)
-    setBioToChange(res.data.bio)
-  })
+     }
 
   return (
     <>
@@ -44,48 +57,40 @@ export default function Profile() {
                 type="text"
                 placeholder="First Name"
                 autoFocus
-                value={firstNameToChange}
-                
+                value={firstNameChanged}
+                onChange={changeFirstName}
               />
               <Form.Label className='mt-1'>Last Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Last Name"
                 autoFocus
-                value={lastNameToChange}
-                
+                value={lastNameChanged}
+                onChange={changeLastName}
               />
               <Form.Label className='mt-1'>Phone Number</Form.Label>
               <Form.Control
                 type="number"
                 placeholder="Phone Number"
                 autoFocus
-                value={phoneNumberToChange}
-               
+                value={phoneNumberChanged}
+                onChange={changePhoneNumber}
               />
               <Form.Label className='mt-1'>Email address</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="name@example.com"
+                readOnly={true}
                 autoFocus
                 value={emailToChange}
-                
+                className='email-profile-settings'
               />
               <Form.Label className='mt-1'>Password</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                readOnly={true}
                 autoFocus
-                value={''}
-               
-              />
-              <Form.Label className='mt-1'>Confirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Confirm Password"
-                autoFocus
-                value={''}
-                
+                value={passwordToChange}
+                className='password-profile-settings'
               />
               <Form.Label className='mt-1'>Bio</Form.Label>
               <Form.Control
@@ -93,11 +98,11 @@ export default function Profile() {
                 as="textarea"
                 placeholder="Write a short Bio"
                 autoFocus
-                value={bioToChange}
-                
+                value={bioChanged}
+                onChange={changeBio}
               />
         </FormGroup>
-        <Button variant="primary" >
+        <Button variant="primary" onClick={saveChanges} >
            Save Changes
           </Button>
       </Form>
