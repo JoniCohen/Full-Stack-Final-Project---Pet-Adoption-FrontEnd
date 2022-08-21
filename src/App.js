@@ -11,6 +11,10 @@ import ModalRegister from './Components/ModalRegister';
 import { useState } from 'react';
 import PrivateRouter from './Components/PrivateRouter';
 import axios from 'axios'
+import Admin from './Pages/AdminUsers';
+import AdminUsers from './Pages/AdminUsers';
+import AddPets from './Pages/AddPets';
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -60,6 +64,9 @@ function App() {
         <Route path='/mypets' element={<PrivateRouter isLoggedIn={isLoggedIn} ><MyPets/></PrivateRouter>}/>
         
         <Route path='/search' element={<Search/>}/>
+        <Route path='/admin' element={<AdminUsers/>}/>
+        <Route path='/addpets' element={<AddPets/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
       </Routes>
       </BrowserRouter>
       </appContext.Provider>
