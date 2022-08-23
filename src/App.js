@@ -47,9 +47,10 @@ function App() {
   setPasswordToChange(resName.data[0].password)
   setBioToChange(resName.data[0].bio)
     })
+  })
       
     
-  })
+  
 
   return (
     <>

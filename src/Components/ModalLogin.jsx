@@ -20,9 +20,12 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
     const userLogIn = {email:emailLogin, password:passwordLogin}
     async function logInUser(){
         try{
-          const res = await axios.post('http://localhost:8080/users/login',userLogIn)
-          setIsLoggedIn(true)
-          setUserId(res.data.id_user)
+          const res = await axios.post('http://localhost:8080/users/login',userLogIn,{withCredentials:true})
+          if(res.data.token){
+            setIsLoggedIn(true)
+          }
+          console.log(res.data)
+          setUserId(res.data.id)
           return res
         }catch(err){
           console.log(err.response,err)

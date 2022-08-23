@@ -70,15 +70,15 @@ body{
   transform: scale(1.2);
 }
 .form-add-pets{
-  width: 40%;
+  width: 30%;
   margin-left: 5%;
-  margin-top: 5%;
+  margin-top: 1%;
 }
 .btn-add-pets{
-  margin-left: 83%;
+  margin-left: 65%;
 }
 .form-add-pets-additions{
-  width: 40%;
+  width: 30%;
   margin-left: 5%;
-  margin-top: 5%;
+  margin-top: 1%;
 }
