@@ -12,7 +12,7 @@ export default function LogOut() {
     console.log(res.data)
     if(res.data.ok){
       localStorage.setItem('isLoggedIn',false)
-      localStorage.setItem('userId','')
+      localStorage.setItem('userId',false)
       setUserId('')
       setIsLoggedIn(false)
     }
