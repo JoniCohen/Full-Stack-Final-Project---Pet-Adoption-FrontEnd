@@ -82,3 +82,9 @@ body{
   margin-left: 5%;
   margin-top: 1%;
 }
+.search-filters{
+  width: 20%;
+  height: 80vh;
+  background-color: #4754e5;
+  color: white;
+}

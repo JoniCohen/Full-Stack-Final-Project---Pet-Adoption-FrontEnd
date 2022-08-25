@@ -22,10 +22,13 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
         try{
           const res = await axios.post('http://localhost:8080/users/login',userLogIn,{withCredentials:true})
           if(res.data.token){
+            localStorage.setItem('isLoggedIn',true)
+            localStorage.setItem('userId',(res.data.id))
+            setUserId(res.data.id)
             setIsLoggedIn(true)
           }
           console.log(res.data)
-          setUserId(res.data.id)
+          
           return res
         }catch(err){
           console.log(err.response,err)

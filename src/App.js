@@ -8,7 +8,7 @@ import MyPets from './Pages/MyPets';
 import appContext from './Context/appContext';
 import ModalLogin from './Components/ModalLogin';
 import ModalRegister from './Components/ModalRegister';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PrivateRouter from './Components/PrivateRouter';
 import axios from 'axios'
 import Admin from './Pages/AdminUsers';
@@ -37,6 +37,7 @@ function App() {
     }
     
   }
+  
   getUserById().then((resName)=>{
     resName.data.map(()=>{
       setFullName(resName.data[0].first_name + " "+ resName.data[0].last_name)
@@ -48,8 +49,17 @@ function App() {
   setBioToChange(resName.data[0].bio)
     })
   })
-      
-    
+  useEffect(()=>{
+    getUserById()
+  },[])
+  useEffect(()=>{
+    const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'))
+    const uId = JSON.parse(localStorage.getItem('userId'))
+    if(loggedIn){
+      setIsLoggedIn(loggedIn)
+      setUserId(uId)
+    }
+  },[])  
   
 
   return (
