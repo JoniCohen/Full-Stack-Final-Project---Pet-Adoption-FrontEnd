@@ -82,9 +82,22 @@ export default function AddPets() {
     try{
       const res = await axios.post('http://localhost:8080/pets/addpet',petData)
       console.log(res.data)
+      alert('Pet added')
+      setBioPet('')
+      setBreedsPet('')
+      setColorsPet('')
+      setDietaryPet('')
+      setHeightPet('')
+      setHypoallergenicPet('')
+      setImagePet('')
+      setNamePet('')
+      setTypesPet('')
+      setWeightPet('')
     }catch(err){
       console.log(err.message)
     }
+      
+    
     
   }
 

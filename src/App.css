@@ -88,3 +88,17 @@ body{
   background-color: #4754e5;
   color: white;
 }
+.pet-list{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 200px;
+}
+.pet-card{
+  list-style: none;
+  border: 1px solid black;
+  width: 250px;
+}
+.img-pet-card{
+  width: 80px;
+  height: 80px;
+}
