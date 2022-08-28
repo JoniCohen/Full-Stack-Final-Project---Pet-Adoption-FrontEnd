@@ -10,7 +10,6 @@ export default function MainPageLoggedIn() {
   async function getUserById(){
     try{
       const resName = await axios.get('http://localhost:8080/users/user/'+userId)
-      console.log(resName.data)
       return resName
     }catch(err){
       console.log(err)

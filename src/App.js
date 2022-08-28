@@ -10,6 +10,7 @@ import ModalLogin from './Components/ModalLogin';
 import ModalRegister from './Components/ModalRegister';
 import { useState, useEffect } from 'react';
 import PrivateRouter from './Components/PrivateRouter';
+import PrivateRouterAdmin from './Components/PrivateRouterAdmin';
 import axios from 'axios'
 import Admin from './Pages/AdminUsers';
 import AdminUsers from './Pages/AdminUsers';
@@ -30,7 +31,6 @@ function App() {
   async function getUserById(){
     try{
       const resName = await axios.get('http://localhost:8080/users/user/'+userId)
-      console.log(resName.data)
       return resName
     }catch(err){
       console.log(err)
@@ -71,13 +71,13 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/profile' element={<PrivateRouter isLoggedIn={isLoggedIn}><Profile/></PrivateRouter> }/>
-        <Route path='/mypets' element={<PrivateRouter isLoggedIn={isLoggedIn} ><MyPets/></PrivateRouter>}/>
+        <Route path='/profile' element={<PrivateRouter isLoggedIn={isLoggedIn} userId={userId} ><Profile/></PrivateRouter> }/>
+        <Route path='/mypets' element={<PrivateRouter isLoggedIn={isLoggedIn} userId={userId} ><MyPets/></PrivateRouter>}/>
         
         <Route path='/search' element={<Search/>}/>
-        <Route path='/admin' element={<AdminUsers/>}/>
-        <Route path='/addpets' element={<AddPets/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/admin' element={<PrivateRouterAdmin isLoggedIn={isLoggedIn} userId={userId} ><AdminUsers/></PrivateRouterAdmin>}/>
+        <Route path='/addpets' element={<PrivateRouterAdmin isLoggedIn={isLoggedIn} userId={userId} ><AddPets/></PrivateRouterAdmin>}/>
+        <Route path='/dashboard' element={<PrivateRouterAdmin isLoggedIn={isLoggedIn} userId={userId} ><Dashboard/></PrivateRouterAdmin>}/>
       </Routes>
       </BrowserRouter>
       </appContext.Provider>

@@ -14,21 +14,15 @@ export default function Search() {
     
     async function showPets(){
       try{
-        
         const res = await axios.get('http://localhost:8080/pets',{withCredentials:true})
-       
        setPet(res.data)
-        
-        
-      }catch(err){
+        }catch(err){
         console.log(err)
-        
-      }
+        }
       }
       useEffect(()=>{
         showPets()
-       
-      },[])
+       },[])
 
   return (
     <>

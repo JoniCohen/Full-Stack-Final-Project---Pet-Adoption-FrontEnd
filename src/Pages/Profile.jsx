@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { Form, FormGroup, Button } from 'react-bootstrap'
 import NavBarHome from '../Components/NavBarHome'
 import appContext from '../Context/appContext'
+import LogOut from '../Components/logOut'
 
 export default function Profile() {
   const {userId, setUserId,fullName, setFullName,firstNameToChange, setFirstNameToChange,lastNameToChange, setLastNameToChange,phoneNumberToChange, setPhoneNumberToChange,emailToChange, setEmailToChange,passwordToChange, setPasswordToChange,bioToChange, setBioToChange} = useContext(appContext)
@@ -48,6 +49,7 @@ export default function Profile() {
   return (
     <>
     <NavBarHome />
+    <LogOut/>
     <div>
       <Form className='form-profile'>
       <h1>Profile Settings</h1>
