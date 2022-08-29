@@ -3,11 +3,11 @@ import appContext from '../Context/appContext'
 import { Link, Navigate } from "react-router-dom";
 
 export default function PrivateRouterAdmin({children}) {
-    const {isLoggedIn,userId} = useContext(appContext)
+    const {isLoggedIn,isAdmin} = useContext(appContext)
     
     if(!isLoggedIn){
         return <Navigate to='/'/>
-    }else if(isLoggedIn && userId===14){
+    }else if(isLoggedIn && isAdmin){
         return children
     } 
 }

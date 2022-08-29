@@ -10,7 +10,7 @@ export default function ModalPet({show,onHide,pets}) {
         }
         return "No"
     }
-    
+
       return (
         <Modal show={show}
           size="xxl"

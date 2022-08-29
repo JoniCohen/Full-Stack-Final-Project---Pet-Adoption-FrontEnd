@@ -16,6 +16,7 @@ export default function Search() {
       try{
         const res = await axios.get('http://localhost:8080/pets',{withCredentials:true})
        setPet(res.data)
+       console.log(res.data)
         }catch(err){
         console.log(err)
         }

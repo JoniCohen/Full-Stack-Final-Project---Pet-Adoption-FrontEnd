@@ -6,16 +6,16 @@ import { Link, Navigate } from "react-router-dom";
 
 
 export default function Home() {
-  const {isLoggedIn,userId} = useContext(appContext)
+  const {isLoggedIn,userId,isAdmin} = useContext(appContext)
   useEffect(()=>{
     console.log(isLoggedIn)
   },[isLoggedIn])
   
   if(!isLoggedIn){
     return <LoggedOut/>
-  }else if(isLoggedIn && userId != 14){
+  }else if(isLoggedIn && !isAdmin){
     return <MainPageLoggedIn/>
-  }else if(isLoggedIn && userId == 14){
+  }else if(isLoggedIn && isAdmin){
     return <Navigate to='/admin'/>
   }
 

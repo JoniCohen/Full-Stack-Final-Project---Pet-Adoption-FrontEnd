@@ -27,6 +27,7 @@ function App() {
   const [emailToChange, setEmailToChange] = useState('')
   const [passwordToChange, setPasswordToChange] = useState('')
   const [bioToChange, setBioToChange] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
 
   async function getUserById(){
     try{
@@ -55,9 +56,11 @@ function App() {
   useEffect(()=>{
     const loggedIn = JSON.parse(localStorage.getItem('isLoggedIn'))
     const uId = JSON.parse(localStorage.getItem('userId'))
+    const admin = JSON.parse(localStorage.getItem('isAdmin'))
     if(loggedIn){
       setIsLoggedIn(loggedIn)
       setUserId(uId)
+      setIsAdmin(admin)
     }
   },[])  
   
@@ -65,7 +68,7 @@ function App() {
   return (
     <>
     <div className="App">
-    <appContext.Provider value={{isLoggedIn,setIsLoggedIn,userId,setUserId,fullName, setFullName,firstNameToChange, setFirstNameToChange,lastNameToChange, setLastNameToChange,phoneNumberToChange, setPhoneNumberToChange,emailToChange, setEmailToChange,passwordToChange, setPasswordToChange,bioToChange, setBioToChange}}>
+    <appContext.Provider value={{isLoggedIn,setIsLoggedIn,userId,setUserId,fullName, setFullName,firstNameToChange, setFirstNameToChange,lastNameToChange, setLastNameToChange,phoneNumberToChange, setPhoneNumberToChange,emailToChange, setEmailToChange,passwordToChange, setPasswordToChange,bioToChange, setBioToChange,isAdmin,setIsAdmin}}>
     <ModalLogin/>
     <ModalRegister/>
       <BrowserRouter>

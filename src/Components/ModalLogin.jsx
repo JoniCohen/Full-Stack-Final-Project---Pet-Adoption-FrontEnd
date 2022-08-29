@@ -6,7 +6,7 @@ import axios from "axios";
 import appContext from '../Context/appContext';
 
 export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleShowModalLogin}) {
-  const {isLoggedIn,setIsLoggedIn,userId,setUserId} = useContext(appContext)
+  const {isLoggedIn,setIsLoggedIn,userId,setUserId,isAdmin,setIsAdmin} = useContext(appContext)
     const [emailLogin, setEmailLogin] = useState('');
     const [passwordLogin, setPasswordLogin] = useState('');
     
@@ -24,8 +24,10 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
           if(res.data.token){
             localStorage.setItem('isLoggedIn',true)
             localStorage.setItem('userId',(res.data.id))
+            localStorage.setItem('isAdmin',(res.data.is_admin))
             setUserId(res.data.id)
             setIsLoggedIn(true)
+            setIsAdmin(res.data.is_admin)
           }
           console.log(res.data)
           

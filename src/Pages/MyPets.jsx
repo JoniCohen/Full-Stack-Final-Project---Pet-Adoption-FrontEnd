@@ -16,20 +16,29 @@ const [message, setMessage] = useState('')
 async function getPetsById(){
   try{
     const res = await axios.get('http://localhost:8080/pets/user/'+userId)
+    console.log(res.data)
     setUserPets(res.data)
   }catch(err){
     console.log(err)
   }
 }
-  function renderPets(){
-    if(userPets.length==0){
-      setMessage("You don't have pets")
-    }
+  async function getSavedPets(){
+    const res = await axios.get('http://localhost:8080/pets/savedpets/'+userId)
+    console.log(res.data)
   }
+
+  function renderPets(){
+    if(userPets==[]){
+      setMessage("You don't have pets")
+    }else{
+      setMessage("Your pets")
+    }
+    }
 
   useEffect(()=>{
     getPetsById()
     renderPets()
+    getSavedPets()
   },[])
 
 const navigate = useNavigate()
@@ -38,35 +47,26 @@ const navigate = useNavigate()
    }
 
     
-   async function adoptPet(){
-    try{
-      const adoptObject = {newStatus:2,newUser:userId,petId:userPets.id_pet}
-      const res = await axios.put('http://localhost:8080/pets/adopt',adoptObject,{withCredentials:true})
-    }catch(err){
-      console.log(err)
-    }
-
-    try{
-      const adoptObject = {newStatus:2,newUser:userId,petId:userPets.id_pet}
-      const resOperation = await axios.post('http://localhost:8080/pets/operations',adoptObject,{withCredentials:true})
-    }catch(err){
-      console.log(err)
-    }
-    alert('Pet adopted')
-    }
-    
+   
+   
 
 
   return (
     <>
     <NavBarHome/>
     <LogOut/>
-    <PetArray pet={userPets} />
-    <Pet adoptPet = {adoptPet}/>
-    <div>
     <Button onClick={NavigateToSearchPage}>Search Pets</Button>
-    <span>{message} </span>
+    <div className='d-flex flex-row'>
+    <div className='saved-pets'>
+      <h2>Saved Pets</h2>
     </div>
+    <div className='my-pets'>
+    <h2>{message} </h2>
+    <PetArray pet={userPets} />
+    </div>
+    </div>
+    
+    
     </>
     
   )
