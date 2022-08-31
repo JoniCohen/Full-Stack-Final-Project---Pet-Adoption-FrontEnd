@@ -2,7 +2,7 @@ import React from 'react'
 import Pet from './Pet'
 
 export default function PetArray(props) {
-    const {pet,showPets,getPetsById,getPetsByType} = props
+    const {pet,search,getPetsById} = props
 
   return (
     <ul className='pet-list'>
@@ -10,9 +10,8 @@ export default function PetArray(props) {
             <Pet 
             key={pets.id_pet}
             pets = {pets}
-            showPets={showPets}
+            search={search}
             getPetsById={getPetsById}
-            getPetsByType={getPetsByType}
             />
         ))}
     </ul>

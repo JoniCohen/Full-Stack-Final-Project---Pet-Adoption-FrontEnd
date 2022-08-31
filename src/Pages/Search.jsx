@@ -8,13 +8,13 @@ import Form from 'react-bootstrap/Form';
 
 export default function Search() {
     const [pet,setPet] = useState([])
-    const [typesPet, setTypesPet] = useState('')
+    const [searchPet, setSearchPet] = useState({name:'',type:'',color:'',breed:'',minHeight:0,maxHeight:'',minWeight:0,maxWeight:''})
     const navigate = useNavigate()
     function returnHome(){
       navigate('/')
     }
     
-    async function showPets(){
+    /*async function showPets(){
       try{
         const res = await axios.get('http://localhost:8080/pets',{withCredentials:true})
        setPet(res.data)
@@ -24,20 +24,21 @@ export default function Search() {
       }
       useEffect(()=>{
         showPets()
-       },[])
+       },[])*/
     
-       async function getPetsByType(){
-        const type = typesPet
+       async function search(){
+        console.log(searchPet)
         try{
-          const res = await axios.get(`http://localhost:8080/pets/type/${type}`,{withCredentials:true})
+          const res = await axios.get(`http://localhost:8080/pets/search`,{params:searchPet,withCredentials:true})
           console.log(res.data)
+          setPet(res.data)
         }catch(err){
         console.log(err)
         }
        }
-       useEffect(()=>{
-        getPetsByType()
-       },[])
+       function handleSearchPet(e){
+        setSearchPet({...searchPet,[e.target.name]:e.target.value})
+       }
 
   return (
     <>
@@ -45,16 +46,17 @@ export default function Search() {
     <div className='d-flex'>
       <div className='search-filters' >
         <h3 className='border-bottom p-1'>Search</h3>
+        <Form>
         <Form.Label className='mt-1'>Type</Form.Label>
-              <Form.Check label='Cat' type='radio' name='Type' value='Cat' onChange={(e)=>setTypesPet(e.target.value)} />
-              <Form.Check label='Dog' type='radio' name='Type' value='Dog' onChange={(e)=>setTypesPet(e.target.value)}/>
-        <Button onClick={getPetsByType}>Search</Button>
+              <Form.Check label='Cat' type='radio' name='type' value='Cat' onChange={handleSearchPet} />
+              <Form.Check label='Dog' type='radio' name='type' value='Dog' onChange={handleSearchPet}/>
+        <Button onClick={search}>Search</Button>
+        </Form>
         <div>
-
-        </div>
+          </div>
       </div>
       <div>
-      <PetArray pet= {pet} showPets={showPets} getPetsByType={getPetsByType} />
+      <PetArray pet= {pet} search={search} />
       
       </div>
     </div>

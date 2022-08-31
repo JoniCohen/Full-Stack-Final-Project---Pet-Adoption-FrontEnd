@@ -5,7 +5,7 @@ import axios from "axios";
 import appContext from "../Context/appContext";
 
 export default function Pet(props) {
-  const { pets, showPets, getPetsById,getPetsByType } = props;
+  const { pets, search, getPetsById } = props;
   const { userId } = useContext(appContext);
   const [modalPetShow, setModalPetShow] = useState(false);
   const idPet = pets.id_pet;
@@ -17,7 +17,7 @@ export default function Pet(props) {
 
   function showPetsForFostering(){
     if(pets.status_pet==='Available'){
-      return showPets()
+      return search()
     }else if(pets.status_pet==='Fostered'){
       return getPetsById()
     }
@@ -104,7 +104,7 @@ export default function Pet(props) {
       console.log(err);
     }
     alert("Pet fostered");
-    showPets();
+    search()
   }
   async function savePets() {
     try {
