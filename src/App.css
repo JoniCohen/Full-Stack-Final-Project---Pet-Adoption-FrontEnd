@@ -83,10 +83,11 @@ body{
   margin-top: 1%;
 }
 .search-filters{
-  width: 20%;
-  height: 80vh;
+  width: 22%;
+  height: 85vh;
   background-color: #4754e5;
   color: white;
+  margin-top: 3%;
 }
 .pet-list{
   display: grid;
