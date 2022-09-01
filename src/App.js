@@ -12,10 +12,11 @@ import { useState, useEffect } from 'react';
 import PrivateRouter from './Components/PrivateRouter';
 import PrivateRouterAdmin from './Components/PrivateRouterAdmin';
 import axios from 'axios'
-import Admin from './Pages/AdminUsers';
 import AdminUsers from './Pages/AdminUsers';
 import AddPets from './Pages/AddPets';
 import Dashboard from './Pages/Dashboard';
+import PetDashboard from './Pages/PetDashboard';
+import HistoricalOperations from './Pages/HistoricalOperations';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -81,6 +82,8 @@ function App() {
         <Route path='/admin' element={<PrivateRouterAdmin isLoggedIn={isLoggedIn} userId={userId} ><AdminUsers/></PrivateRouterAdmin>}/>
         <Route path='/addpets' element={<PrivateRouterAdmin isLoggedIn={isLoggedIn} userId={userId} ><AddPets/></PrivateRouterAdmin>}/>
         <Route path='/dashboard' element={<PrivateRouterAdmin isLoggedIn={isLoggedIn} userId={userId} ><Dashboard/></PrivateRouterAdmin>}/>
+        <Route path='/petsdashboard' element={<PetDashboard/>}/>
+        <Route path='/historicaloperations' element={<HistoricalOperations/>}/>
       </Routes>
       </BrowserRouter>
       </appContext.Provider>

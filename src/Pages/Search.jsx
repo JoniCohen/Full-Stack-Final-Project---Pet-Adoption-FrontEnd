@@ -15,23 +15,9 @@ export default function Search() {
       navigate('/')
     }
     
-    /*async function showPets(){
-      try{
-        const res = await axios.get('http://localhost:8080/pets',{withCredentials:true})
-       setPet(res.data)
-        }catch(err){
-        console.log(err)
-        }
-      }
-      useEffect(()=>{
-        showPets()
-       },[])*/
-    
        async function search(){
-        console.log(searchPet)
         try{
           const res = await axios.get(`http://localhost:8080/pets/search`,{params:searchPet,withCredentials:true})
-          console.log(res.data)
           setPet(res.data)
         }catch(err){
         console.log(err)
@@ -56,7 +42,7 @@ export default function Search() {
               <Form.Check label='Dog' type='radio' name='type' value='Dog' onChange={handleSearchPet}/>
         <Button className='mt-4' onClick={(e)=>{setAdvancedSearch(!advancedSearch)}}>Advanced Search</Button>
         <div className='d-flex flex-column'>
-        <Form.Label className='mt-2' hidden={advancedSearch ? false : true}>Name</Form.Label>
+        <Form.Label className='mt-2' hidden={advancedSearch ? false : true}>Name (Case Sensitive)</Form.Label>
         <Form.Control type="text" placeholder='Name' name='name' hidden={advancedSearch ? false : true} onChange={handleSearchPet} />
         <Form.Label className='mt-2' hidden={advancedSearch ? false : true}>Color</Form.Label>
         <select id="color" hidden={advancedSearch ? false : true} name='color' onChange={handleSearchPet}>

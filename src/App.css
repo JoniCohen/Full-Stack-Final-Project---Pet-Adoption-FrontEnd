@@ -111,5 +111,23 @@ body{
   width: 50%;
 }
 .table{
-  margin-left: 20%;
+  margin-left: 10%;
+}
+.petsDashboard-id,.petsDashboard-name,.petsDashboard-status,.petsDashboard-color,.petsDashboard-breed,.petsDashboard-type,.petsDashboard-user{
+  border: 1px solid black;
+  width: 100px;
+  text-align: center;
+}
+.petsDashboard-user{
+  width: 150px;
+}
+.data-petsDashboard{
+  height: 65px;
+  text-align: center;
+}
+.petsDashboard{
+  margin-left: 15%;
+}
+.btn-unadmin{
+  margin-left: -134%;
 }
