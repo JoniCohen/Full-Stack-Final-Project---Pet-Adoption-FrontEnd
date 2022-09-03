@@ -12,7 +12,8 @@ export default function NavBarAdmin() {
           <ul className='navbar d-flex'>
               <li className='li-navbar'> <Link className='links' to='/admin'>Users</Link></li>
               <li className='li-navbar'> <Link className='links' to='/addpets'>Add Pets</Link></li>
-              <li className='li-navbar'><Link className='links' to='/dashboard'>Dashboard</Link></li>
+              <li className='li-navbar'><Link className='links' to='/petsdashboard'>Pets Dashboard</Link></li>
+              <li className='li-navbar'><Link className='links' to='/historicaloperations'> Operations Dashboard</Link></li>
           </ul>
       </div>
       )
