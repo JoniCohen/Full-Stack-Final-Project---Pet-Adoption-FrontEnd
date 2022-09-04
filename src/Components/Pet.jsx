@@ -6,10 +6,11 @@ import appContext from "../Context/appContext";
 
 export default function Pet(props) {
   const { pets, search, getPetsById } = props;
-  const { userId } = useContext(appContext);
+  const { userId, isLoggedIn } = useContext(appContext);
   const [modalPetShow, setModalPetShow] = useState(false);
   const idPet = pets.id_pet;
 
+  
   async function getDetails() {
     const res = await axios.get("http://localhost:8080/pets/pet/" + idPet,{withCredentials:true});
     setModalPetShow(true);
@@ -28,24 +29,24 @@ export default function Pet(props) {
       const res = await axios.put(
         "http://localhost:8080/pets/adopt",
         adoptObject,
-        { withCredentials: true }
-      );
+        { withCredentials: true })
+        if(res){
+          const adoptObject = { newStatus: 2, newUser: userId, petId: pets.id_pet };
+          const resOperation = await axios.post(
+            "http://localhost:8080/pets/operations",
+            adoptObject,
+            { withCredentials: true }
+          )
+          if(resOperation){
+            alert("Pet adopted");
+            showPetsForFostering()
+          }
+        }
     } catch (err) {
       console.log(err);
     }
 
-    try {
-      const adoptObject = { newStatus: 2, newUser: userId, petId: pets.id_pet };
-      const resOperation = await axios.post(
-        "http://localhost:8080/pets/operations",
-        adoptObject,
-        { withCredentials: true }
-      );
-    } catch (err) {
-      console.log(err);
-    }
-    alert("Pet adopted");
-    showPetsForFostering()
+    
   }
 
   async function returnPet() {
@@ -55,23 +56,23 @@ export default function Pet(props) {
         "http://localhost:8080/pets/return",
         returnObject,
         { withCredentials: true }
-      );
-    } catch (err) {
+      )
+      if(res){
+        const adoptObject = { newStatus: 1, newUser: userId, petId: pets.id_pet };
+        const resOperation = await axios.post(
+          "http://localhost:8080/pets/operations",
+          adoptObject,
+          { withCredentials: true }
+        )
+      
+      if(resOperation){
+        alert("Pet returned");
+        getPetsById();
+      }
+    }} catch (err) {
       console.log(err);
     }
-
-    try {
-      const adoptObject = { newStatus: 1, newUser: userId, petId: pets.id_pet };
-      const resOperation = await axios.post(
-        "http://localhost:8080/pets/operations",
-        adoptObject,
-        { withCredentials: true }
-      );
-    } catch (err) {
-      console.log(err);
-    }
-    alert("Pet returned");
-    getPetsById();
+   
   }
   async function fosterPet() {
     try {
@@ -84,27 +85,27 @@ export default function Pet(props) {
         "http://localhost:8080/pets/foster",
         fosterObject,
         { withCredentials: true }
-      );
+      )
+      if(res){
+        const fosterObject = {
+          newStatus: 3,
+          newUser: userId,
+          petId: pets.id_pet,
+        };
+        const resOperation = await axios.post(
+          "http://localhost:8080/pets/operations",
+          fosterObject,
+          { withCredentials: true }
+        )
+        if(resOperation){
+          alert("Pet fostered");
+          search()
+        }
+      }
     } catch (err) {
       console.log(err);
     }
-
-    try {
-      const fosterObject = {
-        newStatus: 3,
-        newUser: userId,
-        petId: pets.id_pet,
-      };
-      const resOperation = await axios.post(
-        "http://localhost:8080/pets/operations",
-        fosterObject,
-        { withCredentials: true }
-      );
-    } catch (err) {
-      console.log(err);
-    }
-    alert("Pet fostered");
-    search()
+    
   }
   async function savePets() {
     try {
@@ -113,11 +114,14 @@ export default function Pet(props) {
         "http://localhost:8080/pets/savepets",
         savePetObject,
         { withCredentials: true }
-      );
+      )
+      if(res){
+        alert("Pet saved");
+      }
     } catch (err) {
       console.log(err);
     }
-    alert("Pet saved");
+    
   }
 
   return (
@@ -127,7 +131,7 @@ export default function Pet(props) {
         onHide={() => setModalPetShow(false)}
         pets={pets}
       />
-      <div className="pet-card pt-3 ps-2 ms-3 mb-3">
+      <div className="pet-card pt-3 ps-2 ms-3 mb-3 shadow">
         <div className="d-flex flex-row">
           <img src={pets.image_pet} className="img-pet-card" alt="imagePet" />
           <div className="ms-2">
@@ -135,7 +139,7 @@ export default function Pet(props) {
             <h4>{pets.name_pet} </h4>
             <div className="d-flex flex-row">
               <h6>{pets.type_pet} </h6>
-              <Button size="sm" className="ms-5" onClick={savePets}>
+              <Button size="sm" className="ms-5" onClick={savePets} hidden={!isLoggedIn ? true : false} >
                 Save
               </Button>
             </div>
@@ -153,9 +157,9 @@ export default function Pet(props) {
           <Button
             className="mt-4 ms-1"
             hidden={
-              pets.status_pet == "Available" || pets.status_pet == "Fostered"
-                ? false
-                : true
+              !isLoggedIn || (isLoggedIn && pets.status_pet == "Adopted" ) 
+                ? true
+                : false
             }
             onClick={adoptPet}
           >
@@ -163,14 +167,14 @@ export default function Pet(props) {
           </Button>
           <Button
             className="mt-4 ms-1"
-            hidden={pets.status_pet == "Available" ? false : true}
+            hidden={!isLoggedIn || (isLoggedIn && pets.status_pet != "Available" ) ? true : false}
             onClick={fosterPet}
           >
             Foster
           </Button>
           <Button
             className="mt-4 ms-1"
-            hidden={pets.status_pet == "Available" ? true : false}
+            hidden={!isLoggedIn || (isLoggedIn && pets.status_pet == "Available") ? true : false}
             onClick={returnPet}
           >
             Return

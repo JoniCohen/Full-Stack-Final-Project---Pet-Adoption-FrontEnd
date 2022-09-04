@@ -96,7 +96,7 @@ body{
 }
 .pet-card{
   list-style: none;
-  border: 1px solid black;
+  border: 1px dotted black;
   width: 250px;
  margin-top: 1%;
 }

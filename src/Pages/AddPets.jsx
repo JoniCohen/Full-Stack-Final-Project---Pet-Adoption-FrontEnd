@@ -24,7 +24,7 @@ export default function AddPets() {
 
 
   async function getColorsOfPets(){
-    const resColors = await axios.get('http://localhost:8080/pets/color')
+    const resColors = await axios.get('http://localhost:8080/pets/color',{withCredentials:true})
     return resColors
   }
   getColorsOfPets().then((resColors)=>{
@@ -33,7 +33,7 @@ export default function AddPets() {
     })
   })
   async function getTypeOfPets(){
-    const resType = await axios.get('http://localhost:8080/pets/type')
+    const resType = await axios.get('http://localhost:8080/pets/type',{withCredentials:true})
     return resType
   }
   getTypeOfPets().then((resType)=>{
@@ -42,7 +42,7 @@ export default function AddPets() {
     })
   })
   async function getBreedOfPets(){
-    const resBreed = await axios.get('http://localhost:8080/pets/breed')
+    const resBreed = await axios.get('http://localhost:8080/pets/breed',{withCredentials:true})
     return resBreed
   }
   getBreedOfPets().then((resBreed)=>{
@@ -80,19 +80,13 @@ export default function AddPets() {
     console.log(value)
 
     try{
-      const res = await axios.post('http://localhost:8080/pets/addpet',petData)
+      const res = await axios.post('http://localhost:8080/pets/addpet',petData,{withCredentials:true})
       console.log(res.data)
-      alert('Pet added')
-      setBioPet('')
-      setBreedsPet('')
-      setColorsPet('')
-      setDietaryPet('')
-      setHeightPet('')
-      setHypoallergenicPet('')
-      setImagePet('')
-      setNamePet('')
-      setTypesPet('')
-      setWeightPet('')
+      if(res){
+        alert('Pet added')
+        
+      }
+      
     }catch(err){
       console.log(err.message)
     }

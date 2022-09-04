@@ -8,17 +8,19 @@ export default function SavedPet(props) {
     const {userId} = useContext(appContext)
 
     async function unsavePets() {
-        console.log(userId,savedPets.id_pet)
         try {
-          const res = await axios.delete('http://localhost:8080/pets/savepets/'+userId+'/'+savedPets.id_pet,{ withCredentials: true });
+          const res = await axios.delete('http://localhost:8080/pets/savepets/'+userId+'/'+savedPets.id_pet,{ withCredentials: true })
+          if(res){
+            alert("Pet unsaved");
+            getSavedPets()
+          }
         } catch (err) {
           console.log(err);
         }
-        alert("Pet unsaved");
-        getSavedPets()
+       
       }
   return (
-    <div className="pet-card pt-3 ps-2 ms-3 mb-3">
+    <div className="pet-card pt-3 ps-2 ms-3 mb-3 shadow">
         <div className="d-flex flex-row">
         <img src={savedPets.image_pet} className="img-pet-card" alt="imagePet" />
           <div className="ms-2">
@@ -27,7 +29,7 @@ export default function SavedPet(props) {
             </div>
         </div>
           <div>
-            <Button size="sm" className="ms-5 mt-5" onClick={unsavePets}>
+            <Button size="sm" className="ms-5 mt-5 mb-2" onClick={unsavePets}>
                 Unsave
               </Button>
             </div>

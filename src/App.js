@@ -31,7 +31,7 @@ function App() {
 
   async function getUserById(){
     try{
-      const resName = await axios.get('http://localhost:8080/users/user/'+userId)
+      const resName = await axios.get('http://localhost:8080/users/user/'+userId,{withCredentials:true})
       return resName
     }catch(err){
       console.log(err)

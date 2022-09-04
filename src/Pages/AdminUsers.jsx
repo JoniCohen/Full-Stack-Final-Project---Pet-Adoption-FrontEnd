@@ -28,7 +28,7 @@ export default function AdminUsers() {
   async function getPetsByUser(e){
     const userId = e.target.value
     try{
-      const res = await axios.get('http://localhost:8080/pets/petsbyuser/'+userId)
+      const res = await axios.get('http://localhost:8080/pets/petsbyuser/'+userId,{withCredentials:true})
       setModalPetByUserShow(true)
         setUserDetails(res.data)
     }catch (err) {
@@ -44,10 +44,12 @@ export default function AdminUsers() {
     const idToMakeAdmin = e.target.value
     try{
       const makeAdmin={id_user:idToMakeAdmin,is_admin:1}
-      const res = axios.put('http://localhost:8080/users/isadmin',makeAdmin)
-      alert('The user is now an Admin')
-      getAllUsers()
-    }catch(err) {
+      const res = await axios.put('http://localhost:8080/users/isadmin',makeAdmin,{withCredentials:true})
+      if(res){
+        alert('The user is now an Admin')
+        getAllUsers()
+      }
+       }catch(err) {
       console.log(err);
     }
   }
@@ -55,9 +57,12 @@ export default function AdminUsers() {
     const idToMakeUnadmin = e.target.value
     try{
     const makeUnadmin={id_user:idToMakeUnadmin,is_admin:0}
-      const res = axios.put('http://localhost:8080/users/isadmin',makeUnadmin)
-      alert('Now the user is not an Admin')
-      getAllUsers()
+      const res = await axios.put('http://localhost:8080/users/isadmin',makeUnadmin,{withCredentials:true})
+      if(res){
+        alert('Now the user is not an Admin')
+        getAllUsers()
+      }
+      
     }catch(err) {
       console.log(err);
     }

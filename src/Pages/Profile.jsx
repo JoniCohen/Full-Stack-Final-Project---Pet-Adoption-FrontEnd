@@ -31,7 +31,7 @@ export default function Profile() {
     setBioToChange(bioChanged)
     if(window.confirm('Are you sure that you want to change your profile?')){
       changeProfile()
-      alert('Profile Changed')
+      
     }
     
   }
@@ -39,8 +39,10 @@ export default function Profile() {
   const profileChanged = {firstName:firstNameChanged,lastName:lastNameChanged,phoneNumber:phoneNumberChanged,bio:bioChanged}
   async function changeProfile(){
     try{
-      const res = await axios.put(`http://localhost:8080/users/user/${userId}`,profileChanged)
-      return res
+      const res = await axios.put(`http://localhost:8080/users/user/${userId}`,profileChanged,{withCredentials:true})
+      if(res){
+        alert('Profile Changed')
+      }
     }catch(err){
       console.log(err)
     }
