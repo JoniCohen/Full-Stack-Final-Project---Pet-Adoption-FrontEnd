@@ -42,9 +42,9 @@ export default function HistoricalOperations() {
         <Form.Label className='mt-2' >Status</Form.Label>
         <select id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>
           <option value="" id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>Select a status:</option>
-            <option value="Available" id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>Available</option>
-            <option value="Adopted" id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>Adopted</option>
-            <option value="Fostered" id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>Fostered</option>
+            <option value="Adopted" id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>Adopt</option>
+            <option value="Fostered" id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>Foster</option>
+            <option value="Available" id='status' name='StatusTurnedTo' onChange={handleSearchOperation}>Return</option>
         </select>
         <Form.Label className='mt-2' >Operation</Form.Label>
         <Form.Control type="text" placeholder='OperationID' name='OperationID' onChange={handleSearchOperation} />
