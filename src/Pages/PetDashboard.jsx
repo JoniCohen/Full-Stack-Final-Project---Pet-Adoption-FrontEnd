@@ -3,9 +3,11 @@ import axios from 'axios'
 import NavBarAdmin from "../Components/NavBarAdmin";
 import LogOut from "../Components/logOut";
 import { Button } from "react-bootstrap";
+import EditPets from './EditPets';
 
 export default function PetDashboard() {
     const [viewPets,setViewPets] = useState([])
+    const [modalEditShow, setModalEditShow] = useState(false)
 
 
     async function getPetsView(){
@@ -33,6 +35,8 @@ export default function PetDashboard() {
         console.log(err)
       }
     }
+    const showModalEdit = () => setModalEditShow(true)
+    const handleCloseModalEdit = () => setModalEditShow(false);
 
   return (
     <>
@@ -60,11 +64,13 @@ export default function PetDashboard() {
             <td>{getViewPet.PetBreed}</td>
             <td>{getViewPet.PetType}</td>
             <td>{getViewPet.User}</td>
+            <td><Button value={getViewPet.PetID} onClick={showModalEdit}>Edit</Button></td>
             <td><Button value={getViewPet.PetID} onClick={deletePet}>Delete</Button></td>
           </tr>
         ))}
       </tbody>
     </table>
+    <EditPets showModalEdit = {showModalEdit} modalEditShow={modalEditShow} handleCloseModalEdit={handleCloseModalEdit} />
     </>
     
   )

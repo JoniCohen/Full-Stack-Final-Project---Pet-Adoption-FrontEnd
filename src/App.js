@@ -16,6 +16,7 @@ import AdminUsers from './Pages/AdminUsers';
 import AddPets from './Pages/AddPets';
 import PetDashboard from './Pages/PetDashboard';
 import HistoricalOperations from './Pages/HistoricalOperations';
+import EditPets from './Pages/EditPets';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -28,6 +29,19 @@ function App() {
   const [passwordToChange, setPasswordToChange] = useState('')
   const [bioToChange, setBioToChange] = useState('')
   const [isAdmin, setIsAdmin] = useState(false)
+  const [namePet, setNamePet] = useState('')
+  const [imagePet, setImagePet] = useState('')
+  const [heightPet, setHeightPet] = useState('')
+  const [weightPet, setWeightPet] = useState('')
+  const [bioPet, setBioPet] = useState('')
+  const [dietaryPet, setDietaryPet] = useState('')
+  const [hypoallergenicPet, setHypoallergenicPet] = useState('')
+  const [colorsPet, setColorsPet] = useState('')
+  const [typesPet, setTypesPet] = useState('')
+  const [breedsPet, setBreedsPet] = useState('')
+  let colorPet = []
+  let typePet = []
+  let breedPet = []
 
   async function getUserById(){
     try{
@@ -64,11 +78,38 @@ function App() {
     }
   },[])  
   
+  async function getColorsOfPets(){
+    const resColors = await axios.get('http://localhost:8080/pets/color',{withCredentials:true})
+    return resColors
+  }
+  getColorsOfPets().then((resColors)=>{
+    resColors.data.map((color)=>{
+      colorPet.push({label:color.color_pet,value:color.id_color_pet})
+    })
+  })
+  async function getTypeOfPets(){
+    const resType = await axios.get('http://localhost:8080/pets/type',{withCredentials:true})
+    return resType
+  }
+  getTypeOfPets().then((resType)=>{
+    resType.data.map((type)=>{
+      typePet.push({label:type.type_pet,value:type.id_type_pet})
+    })
+  })
+  async function getBreedOfPets(){
+    const resBreed = await axios.get('http://localhost:8080/pets/breed',{withCredentials:true})
+    return resBreed
+  }
+  getBreedOfPets().then((resBreed)=>{
+    resBreed.data.map((breed)=>{
+      breedPet.push({label:breed.breed_of_pet,value:breed.id_breed_of_pet})
+    })
+  })
 
   return (
     <>
     <div className="App">
-    <appContext.Provider value={{isLoggedIn,setIsLoggedIn,userId,setUserId,fullName, setFullName,firstNameToChange, setFirstNameToChange,lastNameToChange, setLastNameToChange,phoneNumberToChange, setPhoneNumberToChange,emailToChange, setEmailToChange,passwordToChange, setPasswordToChange,bioToChange, setBioToChange,isAdmin,setIsAdmin}}>
+    <appContext.Provider value={{isLoggedIn,setIsLoggedIn,userId,setUserId,fullName, setFullName,firstNameToChange, setFirstNameToChange,lastNameToChange, setLastNameToChange,phoneNumberToChange, setPhoneNumberToChange,emailToChange, setEmailToChange,passwordToChange, setPasswordToChange,bioToChange, setBioToChange,isAdmin,setIsAdmin,namePet, setNamePet,imagePet, setImagePet,heightPet, setHeightPet,weightPet, setWeightPet,bioPet, setBioPet,dietaryPet, setDietaryPet,hypoallergenicPet, setHypoallergenicPet,colorsPet, setColorsPet,typesPet, setTypesPet,breedsPet, setBreedsPet, colorPet, typePet, breedPet}}>
     <ModalLogin/>
     <ModalRegister/>
       <BrowserRouter>
