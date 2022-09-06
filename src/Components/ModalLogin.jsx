@@ -29,11 +29,12 @@ export default function ModalLogin({showModalLogin,handleCloseModalLogin,handleS
             setIsLoggedIn(true)
             setIsAdmin(res.data.is_admin)
           }
-          console.log(res.data)
           
           return res
         }catch(err){
-          console.log(err.response,err)
+          if(err){
+            alert(err.response.data)
+          }
         }finally{
           handleCloseModalLogin()
           

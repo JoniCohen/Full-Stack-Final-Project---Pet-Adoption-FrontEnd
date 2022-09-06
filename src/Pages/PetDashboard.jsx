@@ -8,7 +8,7 @@ import EditPets from './EditPets';
 export default function PetDashboard() {
     const [viewPets,setViewPets] = useState([])
     const [modalEditShow, setModalEditShow] = useState(false)
-
+  const [id_pet, setIdPet] = useState('')
 
     async function getPetsView(){
       try{
@@ -26,7 +26,7 @@ export default function PetDashboard() {
 
     async function deletePet(e){
       const idPet = e.target.value
-      console.log(idPet)
+      
       try{
         const res = await axios.delete('http://localhost:8080/pets/pet/'+idPet,{withCredentials:true})
         alert('Pet Deleted')
@@ -35,7 +35,12 @@ export default function PetDashboard() {
         console.log(err)
       }
     }
-    const showModalEdit = () => setModalEditShow(true)
+    function showModalEdit(e){
+      const id_pet = e.target.value
+      console.log(id_pet)
+      setIdPet(id_pet)
+      setModalEditShow(true)
+    }
     const handleCloseModalEdit = () => setModalEditShow(false);
 
   return (
@@ -65,12 +70,12 @@ export default function PetDashboard() {
             <td>{getViewPet.PetType}</td>
             <td>{getViewPet.User}</td>
             <td><Button value={getViewPet.PetID} onClick={showModalEdit}>Edit</Button></td>
-            <td><Button value={getViewPet.PetID} onClick={deletePet}>Delete</Button></td>
+            <td><Button value={getViewPet.PetID} onClick={deletePet} className='ms-2'>Delete</Button></td>
           </tr>
         ))}
       </tbody>
     </table>
-    <EditPets showModalEdit = {showModalEdit} modalEditShow={modalEditShow} handleCloseModalEdit={handleCloseModalEdit} />
+    <EditPets showModalEdit = {showModalEdit} modalEditShow={modalEditShow} handleCloseModalEdit={handleCloseModalEdit} id_pet = {id_pet} />
     </>
     
   )

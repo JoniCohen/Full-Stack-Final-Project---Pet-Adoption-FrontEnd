@@ -26,14 +26,15 @@ export default function ModalRegister({showModalRegister,handleCloseModalRegiste
     async function registerUser(){
         try{
             const res =  await axios.post('http://localhost:8080/users/signup', newUser)
-            console.log(res)
-          handleCloseModalRegister()
-          handleShowModalLogin()
-            return res
-        }catch(err){
-            console.log(err.message,err.response.data)
-        }finally{
+            if(res){
+              handleCloseModalRegister()
+              handleShowModalLogin()
+            }
           
+        }catch(err){
+            if(err){
+              alert(err.response.data)
+            }
         }
         
     }    

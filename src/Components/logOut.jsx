@@ -9,7 +9,6 @@ export default function LogOut() {
   
   async function logOut(){
     const res = await axios.get('http://localhost:8080/users/logout',{withCredentials:true})
-    console.log(res.data)
     if(res.data.ok){
       localStorage.setItem('isLoggedIn',false)
       localStorage.setItem('userId',false)

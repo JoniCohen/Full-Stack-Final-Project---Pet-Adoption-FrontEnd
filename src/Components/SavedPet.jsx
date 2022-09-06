@@ -15,7 +15,9 @@ export default function SavedPet(props) {
             getSavedPets()
           }
         } catch (err) {
-          console.log(err);
+          if(err){
+            alert(err.response.statusText)
+          }
         }
        
       }

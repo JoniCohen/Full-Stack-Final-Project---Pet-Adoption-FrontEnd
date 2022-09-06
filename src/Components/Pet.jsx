@@ -43,7 +43,9 @@ export default function Pet(props) {
           }
         }
     } catch (err) {
-      console.log(err);
+      if(err){
+        alert(err.response.statusText)
+      }
     }
 
     
@@ -70,7 +72,9 @@ export default function Pet(props) {
         getPetsById();
       }
     }} catch (err) {
-      console.log(err);
+      if(err){
+        alert(err.response.statusText)
+      }
     }
    
   }
@@ -103,7 +107,9 @@ export default function Pet(props) {
         }
       }
     } catch (err) {
-      console.log(err);
+      if(err){
+        alert(err.response.statusText)
+      }
     }
     
   }
@@ -119,7 +125,9 @@ export default function Pet(props) {
         alert("Pet saved");
       }
     } catch (err) {
-      console.log(err);
+      if(err){
+        alert(err.response.statusText)
+      }
     }
     
   }

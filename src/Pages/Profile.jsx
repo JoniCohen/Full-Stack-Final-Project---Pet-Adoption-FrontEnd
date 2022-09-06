@@ -44,7 +44,9 @@ export default function Profile() {
         alert('Profile Changed')
       }
     }catch(err){
-      console.log(err)
+      if(err){
+        alert(err.response.statusText)
+      }
     }
      }
 

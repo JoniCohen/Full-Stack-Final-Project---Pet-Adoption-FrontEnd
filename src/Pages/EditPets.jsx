@@ -1,27 +1,48 @@
 import React from 'react'
 import { useContext } from 'react'
 import appContext from '../Context/appContext'
-import NavBarAdmin from '../Components/NavBarAdmin'
-import LogOut from '../Components/logOut'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import Select from "react-dropdown-select" 
 import { useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
+import { useEffect } from 'react'
 
-export default function EditPets({showModalEdit,handleCloseModalEdit,modalEditShow}) {
+export default function EditPets({showModalEdit,handleCloseModalEdit,modalEditShow, id_pet}) {
+      const {colorPet,breedPet} = useContext(appContext)
+     const [petToEdit, setPetToEdit] = useState([])
+    
+    const [nameChanged,setNameChanged] = useState()
+    const [heightChanged,setHeightChanged] = useState()
+    const [weightChanged,setWeightChanged] = useState()
+    const [bioChanged,setBioChanged] = useState()
+    const [dietaryChanged,setDietaryChanged] = useState()
+    const [hypoallergenicChanged,setHypoallergenicChanged] = useState()
+    const [colorsChanged,setColorsChanged] = useState()
+    const [breedsChanged,setBreedChanged] = useState()
 
-    const {namePet, setNamePet,heightPet, setHeightPet,weightPet, setWeightPet,bioPet, setBioPet,dietaryPet, setDietaryPet,hypoallergenicPet, setHypoallergenicPet,colorsPet, setColorsPet,typesPet, setTypesPet,breedsPet, setBreedsPet,colorPet, typePet, breedPet} = useContext(appContext)
-    const [nameChanged,setNameChanged] = useState(namePet)
-    const [heightChanged,setHeightChanged] = useState(heightPet)
-    const [weightChanged,setWeightChanged] = useState(weightPet)
-    const [bioChanged,setBioChanged] = useState(bioPet)
-    const [dietaryChanged,setDietaryChanged] = useState(dietaryPet)
-    const [hypoallergenicChanged,setHypoallergenicChanged] = useState(hypoallergenicPet)
-    const [colorsChanged,setColorsChanged] = useState(colorsPet)
-    const [typesChanged,setTypesChanged] = useState(typesPet)
-    const [breedsChanged,setBreedChanged] = useState(breedsPet)
+    
+
+    async function getPetById(){
+      try{
+        const res = await axios.get(`http://localhost:8080/pets/pet/${id_pet}`,{withCredentials:true})
+        if(res){
+          setPetToEdit(res.data)
+          setNameChanged(res.data[0].name_pet)
+          setHeightChanged(res.data[0].height_pet)
+          setWeightChanged(res.data[0].weight_pet)
+          setBioChanged(res.data[0].bio_pet)
+          setDietaryChanged(res.data[0].dietary_restrictions_pet)
+           }
+      }catch(err){
+        console.log(err)
+      }
+      
+      }
+   useEffect(()=>{
+    getPetById()
+   },[showModalEdit])
 
     function handleChangeName(e){
         setNameChanged(e.target.value)
@@ -44,13 +65,24 @@ export default function EditPets({showModalEdit,handleCloseModalEdit,modalEditSh
     function colorChanged(e){
         setColorsChanged(e[0].label)
     }
-    function typeChanged(e){
-        setTypesChanged(e[0].label)
-    }
     function breedChanged(e){
         setBreedChanged(e[0].label)
     }
 
+    const petToEditObject = {namePet:nameChanged,heightPet:heightChanged,weightPet:weightChanged,bioPet:bioChanged,hypoallergenicPet:hypoallergenicChanged,dietaryPet:dietaryChanged,colorsPet:colorsChanged,breedsPet:breedsChanged}
+
+    async function editPet(){
+      try{
+        const res = await axios.put(`http://localhost:8080/pets/editpet/${id_pet}`,petToEditObject,{withCredentials:true})
+        if(res){
+          alert('Pet edited')
+          handleCloseModalEdit()
+        }
+      }catch(err){
+        console.log(err)
+      }
+      
+    }
 
   return (
     <>
@@ -113,21 +145,20 @@ export default function EditPets({showModalEdit,handleCloseModalEdit,modalEditSh
       <Form.Check label='No' type='radio' name='hypoallergenic' value={false} onChange={handleChangeHypoallergenic}/>
               <Form.Label className='mt-1'>Color</Form.Label>
               <Select labelField={colorPet.id_color_pet} options={colorPet} valueField={colorPet.color_pet} onChange={colorChanged} />
-                
-              <Form.Label className='mt-1'>Type</Form.Label>
-              <Select labelField={typePet.id_type_pet} options={typePet} valueField={typePet.type_pet} onChange={typeChanged} />
               <Form.Label className='mt-1'>Breed</Form.Label>
               <Select labelField={breedPet.id_breed_of_pet} options={breedPet} valueField={breedPet.breed_of_pet} onChange={breedChanged} />
             </Form.Group>
           </Form>
     </div>
-    
-          <Button variant="primary" className='btn-add-pets' >
+      <div className='d-flex flex-row'>
+      <Button variant="primary" className='btn-edit-pet' onClick={editPet} >
           Save Changes
         </Button>
-        <Button variant="primary" className='btn-add-pets' onClick={handleCloseModalEdit} >
+        <Button variant="primary" className='ms-2' onClick={handleCloseModalEdit} >
           Close
         </Button>
+      </div>
+          
         </Modal.Body>
     </Modal>
     
