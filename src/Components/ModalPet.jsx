@@ -35,9 +35,12 @@ export default function ModalPet({show,onHide,pets}) {
             </div>
         
             </div>
-        <span className='ms-5'>Bio: {pets.bio_pet}</span>
-        <span className='ms-5'>Hypoallergenic: {hypoallergenic()}</span>
-        <span className='ms-5'>Dietary Restrictions: {pets.dietary_restrictions_pet}</span>
+            <div className='d-flex mt-1'>
+            <span className='ms-5'><b>Bio: </b>{pets.bio_pet}</span>
+        <span className='ms-5'><b>Hypoallergenic: </b>{hypoallergenic()}</span>
+        <span className='ms-5'><b>Dietary Restrictions: </b>{pets.dietary_restrictions_pet}</span>
+            </div>
+        
 
           </Modal.Body>
           <Modal.Footer>

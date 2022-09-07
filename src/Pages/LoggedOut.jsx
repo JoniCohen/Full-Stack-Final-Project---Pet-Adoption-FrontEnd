@@ -29,12 +29,8 @@ export default function LoggedOut() {
         <Button className="sign-in-btn" onClick={handleShowModalLogin}>Sign In</Button>
         <Button className="sign-up-btn" onClick={handleShowModalRegister}>Sign Up</Button>
         </div>
-        <div className="mt-5 d-flex" >
-        <p>Text explaining about the website</p>
-        <img src='Images/picture_home.jpg' alt="" />
-      </div>
         <div className="card-to-search mt-5 d-flex flex-column shadow p-2">
-          <h5 className="text-danger ms-4">Are you looking for pets?</h5>
+        <h3 className="text-welcome">Do not buy... Adopt! We have a lot of pets for you</h3>
         <Button className="btn-search-pets ms-4" onClick={NavigateToSearchPage} >Search our Pets</Button>
         </div>
       <ModalRegister
